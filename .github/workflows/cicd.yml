@@ -1,0 +1,21 @@
+name: Deploy to Local WSL2 Docker
+
+on:
+  push:
+    branches:
+      - actions
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted  # Use self-hosted runner to interact with local Docker
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build and Run Nginx Container
+        run: |
+          docker build -t local-nginx .
+          docker stop local-nginx || true
+          docker rm local-nginx || true
+          docker run -d --name local-nginx -p 80:80 local-nginx
