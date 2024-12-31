@@ -3,7 +3,7 @@ name: Deploy to Local WSL2 Docker
 on:
   push:
     branches:
-      - actions
+      - day2024
 
 jobs:
   build-and-deploy:
